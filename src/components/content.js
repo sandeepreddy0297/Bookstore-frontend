@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
-class Content extends Component {
+import axios from 'axios';
+import React from 'react';
+class Content extends React.Component{
     constructor() {
         super();
         this.state = {
-            id: "1",
+            Bid: "",
             title: "",
             author: "",
             price: ""
@@ -18,15 +19,23 @@ class Content extends Component {
 
     submit = (event) => {
         event.preventDefault();
-        console.log("Book data :", this.state)
+        //console.log("Book data :", this.state)
+        axios.post("http://localhost:8080/book/create", this.state).then(
+           response=>{
+               console.log(response.data);
+           },
+           error=>{
+               console.log(error)
+           }
+        )
     }
-
+    
     render() {
         return (
             <div>
 
                 <form>
-                    <label>Id</label> :  <input type="text" onChange={this.capturedata} value="1" name="id" />  <br></br><br></br>
+                    <label>Id</label> :  <input type="text" onChange={this.capturedata} name="Bid" />  <br></br><br></br>
                     <label>Title</label> :  <input type="text" name="title" onChange={this.capturedata} placeholder="book name" />  <br></br><br></br>
                     <label>Author</label> : <input type="text" name="author"onChange={this.capturedata} placeholder="author" />  <br></br><br></br>
                     <label>Price</label> : <input type="number" name="price" onChange={this.capturedata} placeholder="price" />  <br></br><br></br>
